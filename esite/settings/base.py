@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "generic_chooser",
     "wagtailcaptcha",
     "wagtailfontawesome",
+    "pattern_library",
 ]
 
 #> Middleware Definition

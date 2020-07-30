@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     # Our own apps
     "esite.core",
     "esite.user",
+    "esite.documents",
     # Django core apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -204,7 +205,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Custom document model
 # https://docs.wagtail.io/en/stable/advanced_topics/documents/custom_document_model.html
-#WAGTAILDOCS_DOCUMENT_MODEL = "documents.CustomDocument"
+WAGTAILDOCS_DOCUMENT_MODEL = "documents.CustomDocument"
 #PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
 
 # Custom image model

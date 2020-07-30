@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     # Our own apps
     "esite.core",
     "esite.user",
+    "esite.colorfield",
     "esite.documents",
     "esite.images",
     "esite.navigation",

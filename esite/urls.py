@@ -27,6 +27,9 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
+from esite.utils.cache import get_default_cache_control_decorator
+from esite.utils.views import favicon, robots
+
 
 # Private URLs are not meant to be cached.
 private_urlpatterns = [
@@ -38,8 +41,9 @@ private_urlpatterns = [
 
 # Public URLs that are meant to be cached.
 urlpatterns = [
-    url(r"", include(api_urls)),
     path('sitemap.xml', sitemap),
+    path('favicon.ico', favicon),
+    path('robots.txt', robots),
 ]
 
 
@@ -81,6 +85,10 @@ urlpatterns = private_urlpatterns + urlpatterns + [
     # Wagtail cache-control is set on the page models's serve methods.
     path('', include(wagtail_urls)),
 ]
+
+# Error handlers
+handler404 = 'esite.utils.views.page_not_found'
+handler500 = 'esite.utils.views.server_error'
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019 Werbeagentur Christian Aichner

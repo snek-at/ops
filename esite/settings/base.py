@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "esite.documents",
     "esite.images",
     "esite.navigation",
+    "esite.utils",
     # Django core apps
     "django.contrib.admin",
     "django.contrib.auth",

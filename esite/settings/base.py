@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "esite.core",
     "esite.user",
     "esite.documents",
+    "esite.images",
     # Django core apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -210,8 +211,8 @@ WAGTAILDOCS_DOCUMENT_MODEL = "documents.CustomDocument"
 
 # Custom image model
 # https://docs.wagtail.io/en/stable/advanced_topics/images/custom_image_model.html
-#WAGTAILIMAGES_IMAGE_MODEL = "images.CustomImage"
-#WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
+WAGTAILIMAGES_IMAGE_MODEL = "images.CustomImage"
+WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
 
 # Rich text settings to remove unneeded features
 # We normally don't want editors to use the images

@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "esite.home",
     # Our own apps
     "esite.core",
+    "esite.user",
     # Django core apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -144,6 +145,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
+
+AUTH_USER_MODEL = "user.User"
+# AUTH_PROFILE_MODULE = "avatar.Avatar"
 
 #> Internationalization
 # https://docs.djangoproject.com/en/stable/topics/i18n/

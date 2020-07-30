@@ -27,6 +27,8 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
+from esite.bifrost import urls as api_urls
+
 from esite.utils.cache import get_default_cache_control_decorator
 from esite.utils.views import favicon, robots
 
@@ -41,6 +43,8 @@ private_urlpatterns = [
 
 # Public URLs that are meant to be cached.
 urlpatterns = [
+    #url(r'^api/v2/', api_router.urls),
+    url(r"", include(api_urls)),
     path('sitemap.xml', sitemap),
     path('favicon.ico', favicon),
     path('robots.txt', robots),
@@ -69,6 +73,9 @@ if getattr(settings, 'PATTERN_LIBRARY_ENABLED', False) and apps.is_installed('pa
     ]
 
 
+# Set public URLs to use the "default" cache settings.
+urlpatterns = decorate_urlpatterns(urlpatterns,
+                                   get_default_cache_control_decorator())
 
 # Set vary header to instruct cache to serve different version on different
 # cookies, different request method (e.g. AJAX) and different protocol

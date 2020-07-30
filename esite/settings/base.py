@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/stable/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 
 #> Root Paths
@@ -24,6 +25,7 @@ INSTALLED_APPS = [
     # Our own pages
     "esite.home",
     # Our own apps
+    "esite.bifrost",
     "esite.core",
     "esite.user",
     "esite.colorfield",
@@ -31,6 +33,7 @@ INSTALLED_APPS = [
     "esite.images",
     "esite.navigation",
     "esite.utils",
+    "esite.registration",
     # Django core apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -59,12 +62,17 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_filters",
     "modelcluster",
+    "rest_framework",
     "taggit",
     "captcha",
     "generic_chooser",
     "wagtailcaptcha",
+    "graphene_django",
+    "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
+    "channels",
     "wagtailfontawesome",
     "pattern_library",
+    "esite.project_styleguide.apps.ProjectStyleguideConfig",
 ]
 
 #> Middleware Definition
@@ -142,6 +150,28 @@ DATABASES = {
     }
 }
 
+#> Graphene Configuration
+GRAPHENE = {
+    "SCHEMA": "esite.bifrost.schema.schema",
+    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware",],
+}
+
+GRAPHQL_JWT = {
+    "JWT_ALLOW_ARGUMENT": True,
+    "JWT_VERIFY_EXPIRATION": True,
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+    "JWT_EXPIRATION_DELTA": timedelta(minutes=5),
+    "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=7),
+}
+
+BIFROST_APPS = {
+    "home": "",
+    "registration": "",
+    "utils": "",
+    "documents": "",
+    "images": "",
+}
+
 #> Password Validation
 # The list of validators that are used to check the strength of passwords, see
 # https://docs.djangoproject.com/en/stable/ref/settings/#auth-password-validators
@@ -154,6 +184,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = "user.User"
 # AUTH_PROFILE_MODULE = "avatar.Avatar"
+
+#> Authentication Backend
+AUTHENTICATION_BACKENDS = [
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
 
 #> Internationalization
 # https://docs.djangoproject.com/en/stable/topics/i18n/
@@ -263,5 +299,11 @@ PATTERN_LIBRARY_TEMPLATE_DIR = "templates"
 #> System Checks
 # Wagtail forms not used so silence captcha warning
 SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
+
+#> Favicon Settings
+# After you add favicon.ico file, please add its path relative to the static
+# directory here so it can be served at /favicon.ico.
+FAVICON_STATIC_PATH = "images/favicon/favicon.ico"
+
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019 Werbeagentur Christian Aichner

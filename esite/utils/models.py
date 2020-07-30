@@ -12,6 +12,20 @@ from wagtail.snippets.models import register_snippet
 
 from esite.utils.cache import get_default_cache_control_decorator
 
+from esite.bifrost.models import (
+    GraphQLInt,
+    GraphQLBoolean,
+    GraphQLString,
+    GraphQLFloat,
+    GraphQLImage,
+    GraphQLDocument,
+    GraphQLSnippet,
+    GraphQLEmbed,
+    GraphQLStreamfield,
+    GraphQLForeignKey,
+    GraphQLPage,
+)
+
 class LinkFields(models.Model):
     """
     Adds fields for internal and external links with some methods to simplify the rendering:
@@ -233,6 +247,13 @@ class Button(models.Model):
         on_delete=models.SET_NULL,
         related_name='+',
     )
+
+    graphql_fields = [
+        GraphQLString("button_title"),
+        GraphQLString("button_embed"),
+        GraphQLString("button_link"),
+        GraphQLPage("button_page"),
+    ]
 
     panels = [
         FieldPanel('button_title'),

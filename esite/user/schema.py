@@ -3,16 +3,22 @@ from django.contrib.auth import get_user_model
 import graphene
 from graphene_django import DjangoObjectType
 from graphql import GraphQLError
-from graphql_jwt.decorators import login_required, permission_required, staff_member_required, superuser_required
+from graphql_jwt.decorators import (
+    login_required,
+    permission_required,
+    staff_member_required,
+    superuser_required,
+)
 
 from esite.user.models import User
 
 # Create your registration related graphql schemes here.
 
+
 class UserType(DjangoObjectType):
     class Meta:
         model = User
-        exclude_fields = ['password']
+        exclude_fields = ["password"]
 
 
 class CreateUser(graphene.Mutation):
@@ -25,10 +31,7 @@ class CreateUser(graphene.Mutation):
 
     @superuser_required
     def mutate(self, info, username, password, email):
-        user = get_user_model()(
-            username=username,
-            email=email,
-        )
+        user = get_user_model()(username=username, email=email,)
 
         user.set_password(password)
         user.save()
@@ -54,6 +57,7 @@ class Query(graphene.ObjectType):
         user = info.context.user
 
         return user
+
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019 Werbeagentur Christian Aichner

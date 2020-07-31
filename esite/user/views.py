@@ -12,14 +12,23 @@ from wagtail.admin import widgets
 class UserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ['username', 'first_name', 'last_name', 'email', 'is_staff', 'is_customer']
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "is_staff",
+            "is_customer",
+        ]
+
 
 class UserChooserViewSet(ModelChooserViewSet):
-    icon = 'pilcrow'
+    icon = "pilcrow"
     model = get_user_model()
     page_title = _("Choose a User")
     per_page = 10
     form_class = UserForm
+
 
 # Create your views here.
 

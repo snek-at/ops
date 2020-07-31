@@ -11,58 +11,201 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('wagtailcore', '0045_assign_unlock_grouppagepermission'),
+        ("wagtailcore", "0045_assign_unlock_grouppagepermission"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='FormField',
+            name="FormField",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('label', models.CharField(help_text='The label of the form field', max_length=255, verbose_name='label')),
-                ('field_type', models.CharField(choices=[('singleline', 'Single line text'), ('multiline', 'Multi-line text'), ('email', 'Email'), ('number', 'Number'), ('url', 'URL'), ('checkbox', 'Checkbox'), ('checkboxes', 'Checkboxes'), ('dropdown', 'Drop down'), ('multiselect', 'Multiple select'), ('radio', 'Radio buttons'), ('date', 'Date'), ('datetime', 'Date/time'), ('hidden', 'Hidden field')], max_length=16, verbose_name='field type')),
-                ('required', models.BooleanField(default=True, verbose_name='required')),
-                ('choices', models.TextField(blank=True, help_text='Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.', verbose_name='choices')),
-                ('default_value', models.CharField(blank=True, help_text='Default value. Comma separated values supported for checkboxes.', max_length=255, verbose_name='default value')),
-                ('help_text', models.CharField(blank=True, max_length=255, verbose_name='help text')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "label",
+                    models.CharField(
+                        help_text="The label of the form field",
+                        max_length=255,
+                        verbose_name="label",
+                    ),
+                ),
+                (
+                    "field_type",
+                    models.CharField(
+                        choices=[
+                            ("singleline", "Single line text"),
+                            ("multiline", "Multi-line text"),
+                            ("email", "Email"),
+                            ("number", "Number"),
+                            ("url", "URL"),
+                            ("checkbox", "Checkbox"),
+                            ("checkboxes", "Checkboxes"),
+                            ("dropdown", "Drop down"),
+                            ("multiselect", "Multiple select"),
+                            ("radio", "Radio buttons"),
+                            ("date", "Date"),
+                            ("datetime", "Date/time"),
+                            ("hidden", "Hidden field"),
+                        ],
+                        max_length=16,
+                        verbose_name="field type",
+                    ),
+                ),
+                (
+                    "required",
+                    models.BooleanField(default=True, verbose_name="required"),
+                ),
+                (
+                    "choices",
+                    models.TextField(
+                        blank=True,
+                        help_text="Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.",
+                        verbose_name="choices",
+                    ),
+                ),
+                (
+                    "default_value",
+                    models.CharField(
+                        blank=True,
+                        help_text="Default value. Comma separated values supported for checkboxes.",
+                        max_length=255,
+                        verbose_name="default value",
+                    ),
+                ),
+                (
+                    "help_text",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="help text"
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False,},
         ),
         migrations.CreateModel(
-            name='RegistrationFormPage',
+            name="RegistrationFormPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('to_address', models.CharField(blank=True, help_text='Optional - form submissions will be emailed to these addresses. Separate multiple addresses by comma.', max_length=255, verbose_name='to address')),
-                ('from_address', models.CharField(blank=True, max_length=255, verbose_name='from address')),
-                ('subject', models.CharField(blank=True, max_length=255, verbose_name='subject')),
-                ('registration_head', models.CharField(max_length=255, null=True)),
-                ('registration_newsletter_text', models.CharField(max_length=255, null=True)),
-                ('registration_privacy_text', wagtail.core.fields.RichTextField(null=True)),
-                ('registration_info_text', wagtail.core.fields.RichTextField(null=True)),
-                ('registration_step_text', wagtail.core.fields.RichTextField(null=True)),
-                ('thank_you_text', wagtail.core.fields.RichTextField(null=True)),
-                ('supported_gitlabs', wagtail.core.fields.StreamField([('gitlab_server', wagtail.core.blocks.StructBlock([('organisation', wagtail.core.blocks.CharBlock(blank=False, classname='full title', help_text='The owner of gitlab server.', null=True)), ('domain', wagtail.core.blocks.CharBlock(blank=False, classname='full title', help_text='The domain of supported gitlab server.', null=True))], blank=False, icon='home', null=True))], null=True)),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                (
+                    "to_address",
+                    models.CharField(
+                        blank=True,
+                        help_text="Optional - form submissions will be emailed to these addresses. Separate multiple addresses by comma.",
+                        max_length=255,
+                        verbose_name="to address",
+                    ),
+                ),
+                (
+                    "from_address",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="from address"
+                    ),
+                ),
+                (
+                    "subject",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="subject"
+                    ),
+                ),
+                ("registration_head", models.CharField(max_length=255, null=True)),
+                (
+                    "registration_newsletter_text",
+                    models.CharField(max_length=255, null=True),
+                ),
+                (
+                    "registration_privacy_text",
+                    wagtail.core.fields.RichTextField(null=True),
+                ),
+                (
+                    "registration_info_text",
+                    wagtail.core.fields.RichTextField(null=True),
+                ),
+                (
+                    "registration_step_text",
+                    wagtail.core.fields.RichTextField(null=True),
+                ),
+                ("thank_you_text", wagtail.core.fields.RichTextField(null=True)),
+                (
+                    "supported_gitlabs",
+                    wagtail.core.fields.StreamField(
+                        [
+                            (
+                                "gitlab_server",
+                                wagtail.core.blocks.StructBlock(
+                                    [
+                                        (
+                                            "organisation",
+                                            wagtail.core.blocks.CharBlock(
+                                                blank=False,
+                                                classname="full title",
+                                                help_text="The owner of gitlab server.",
+                                                null=True,
+                                            ),
+                                        ),
+                                        (
+                                            "domain",
+                                            wagtail.core.blocks.CharBlock(
+                                                blank=False,
+                                                classname="full title",
+                                                help_text="The domain of supported gitlab server.",
+                                                null=True,
+                                            ),
+                                        ),
+                                    ],
+                                    blank=False,
+                                    icon="home",
+                                    null=True,
+                                ),
+                            )
+                        ],
+                        null=True,
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('wagtailcore.page',),
+            options={"abstract": False,},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='RegistrationFormSubmission',
+            name="RegistrationFormSubmission",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('form_data', models.TextField()),
-                ('submit_time', models.DateTimeField(auto_now_add=True, verbose_name='submit time')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("form_data", models.TextField()),
+                (
+                    "submit_time",
+                    models.DateTimeField(auto_now_add=True, verbose_name="submit time"),
+                ),
             ],
             options={
-                'verbose_name': 'form submission',
-                'verbose_name_plural': 'form submissions',
-                'abstract': False,
+                "verbose_name": "form submission",
+                "verbose_name_plural": "form submissions",
+                "abstract": False,
             },
         ),
     ]

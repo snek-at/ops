@@ -20,13 +20,13 @@ import django_cache_url
 from .base import *
 
 
-#> Debug Switch
+# > Debug Switch
 # SECURITY WARNING: don't run with debug turned on in production!
 # IMPORTANT: Specified in the environment or set to default (off).
 # See https://docs.djangoproject.com/en/stable/ref/settings/#debug
 DEBUG = env.get("DJANGO_DEBUG", "off") == "on"
 
-#> DEBUG_PROPAGATE_EXCEPTIONS Switch
+# > DEBUG_PROPAGATE_EXCEPTIONS Switch
 # SECURITY WARNING: don't run with debug turned on in production!
 # IMPORTANT: Specified in the environment or set to default (off).
 # See https://docs.djangoproject.com/en/stable/ref/settings/#debug
@@ -37,7 +37,7 @@ DEBUG_PROPAGATE_EXCEPTIONS = env.get("DJANGO_DEBUG_PROPAGATE_EXCEPTIONS", "off")
 if "PRIMARY_HOST" in env:
     BASE_URL = "https://{}".format(env["PRIMARY_HOST"])
 
-#> Secret Key
+# > Secret Key
 # SECURITY WARNING: keep the secret key used in production secret!
 # IMPORTANT: Specified in the environment or generate an ephemeral key.
 # See https://docs.djangoproject.com/en/stable/ref/settings/#secret-key
@@ -60,16 +60,16 @@ if "PREPEND_WWW" in env:
 if "GOOGLE_TAG_MANAGER_ID" in env:
     GOOGLE_TAG_MANAGER_ID = env["GOOGLE_TAG_MANAGER_ID"]
 
-#> SSL Header
+# > SSL Header
 # Used to detect secure connection proberly on Heroku.
 # See https://wagtail.io/blog/deploying-wagtail-heroku/
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-#> SSL Redirect
+# > SSL Redirect
 # Every rquest gets redirected to HTTPS
 SECURE_SSL_REDIRECT = env.get("DJANGO_SECURE_SSL_REDIRECT", "off") == "on"
 
-#> Allowed Hosts
+# > Allowed Hosts
 # Accept all hostnames, since we don't know in advance
 # which hostname will be used for any given Docker instance.
 # IMPORTANT: Set this to a real hostname when using this in production!
@@ -89,12 +89,12 @@ CACHE_CONTROL_STALE_WHILE_REVALIDATE = int(
     env.get("CACHE_CONTROL_STALE_WHILE_REVALIDATE", 30)
 )
 
-#> Security Configuration
+# > Security Configuration
 # This configuration is required to achieve good security rating.
 # You can test it using https://securityheaders.com/
 # https://docs.djangoproject.com/en/stable/ref/middleware/#module-django.middleware.security
 
-#> Force HTTPS Redirect
+# > Force HTTPS Redirect
 # https://docs.djangoproject.com/en/stable/ref/settings/#secure-ssl-redirect
 if env.get("SECURE_SSL_REDIRECT", "true").strip().lower() == "true":
     SECURE_SSL_REDIRECT = True
@@ -119,7 +119,7 @@ if env.get("SECURE_BROWSER_XSS_FILTER", "true").lower().strip() == "true":
 if env.get("SECURE_CONTENT_TYPE_NOSNIFF", "true").lower().strip() == "true":
     SECURE_CONTENT_TYPE_NOSNIFF = True
 
-#> Email Settings
+# > Email Settings
 # We use SMTP to send emails. We typically use transactional email services
 # that let us use SMTP.
 # https://docs.djangoproject.com/en/2.1/topics/email/
@@ -163,7 +163,7 @@ if "DJANGO_EMAIL_SUBJECT_PREFIX" in env:
 if "DJANGO_SERVER_EMAIL" in env:
     SERVER_EMAIL = DEFAULT_FROM_EMAIL = env["DJANGO_SERVER_EMAIL"]
 
-#> Database Configuration
+# > Database Configuration
 # See https://pypi.org/project/dj-database-url/
 # See https://docs.djangoproject.com/en/stable/ref/settings/#databases
 db_from_env = dj_database_url.config(conn_max_age=500)
@@ -172,7 +172,7 @@ DATABASES["default"].update(db_from_env)
 # Configure caches from cache url
 CACHES = {"default": django_cache_url.config()}
 
-#> Front-end Cache
+# > Front-end Cache
 # This configuration is used to allow purging pages from cache when they are
 # published.
 # These settings are usually used only on the production sites.
@@ -195,7 +195,7 @@ if "FRONTEND_CACHE_CLOUDFLARE_TOKEN" in env:
         },
     }
 
-#> Logging
+# > Logging
 # This logging is configured to be used with Sentry and console logs. Console
 # logs are widely used by platforms offering Docker deployments, e.g. Heroku.
 # We use Sentry to only send error logs so we're notified about errors that are
@@ -276,7 +276,7 @@ if "EMBEDLY_API_KEY" in env:
 #    if 'CSP_OBJECT_SRC' in env:
 #        CSP_OBJECT_SRC = env.get('CSP_OBJECT_SRC').split(',')
 
-#> Recaptcha
+# > Recaptcha
 # These settings are required for the captcha challange to work.
 # https://github.com/springload/wagtail-django-recaptcha
 if "RECAPTCHA_PUBLIC_KEY" in env and "RECAPTCHA_PRIVATE_KEY" in env:

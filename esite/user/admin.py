@@ -1,8 +1,13 @@
-from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
+from wagtail.contrib.modeladmin.options import (
+    ModelAdmin,
+    ModelAdminGroup,
+    modeladmin_register,
+)
 
 from .models import User
 
 # Register your user related models here.
+
 
 class UserAdmin(ModelAdmin):
     model = User
@@ -13,10 +18,12 @@ class UserAdmin(ModelAdmin):
     exclude_from_explorer = False
 
     # Listed in the user overview
-    list_display = ('date_joined', 'username', 'email')
-    search_fields = ('date_joined', 'username', 'email')
+    list_display = ("date_joined", "username", "email")
+    search_fields = ("date_joined", "username", "email")
+
 
 # modeladmin_register(UserAdmin)
+
 
 class CustomerAdminB(ModelAdminGroup):
     menu_label = "User Management"
@@ -29,6 +36,7 @@ class CustomerAdminB(ModelAdminGroup):
         # CustomerAdmin,
         # RegistrationAdmin
     )
+
 
 # modeladmin_register(CustomerAdminB)
 

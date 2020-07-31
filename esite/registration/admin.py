@@ -4,6 +4,7 @@ from .models import Registration
 
 # Register your registration related models here.
 
+
 class RegistrationAdmin(ModelAdmin):
     model = Registration
     menu_label = "Registration"
@@ -13,7 +14,32 @@ class RegistrationAdmin(ModelAdmin):
     exclude_from_explorer = False
 
     # Listed in the registration overview
-    list_display = ('date_joined', 'title', 'first_name', 'last_name', 'email', 'telephone', 'address', 'postal_code', 'city', 'country', 'newsletter')
-    search_fields = ('date_joined', 'title', 'first_name', 'last_name', 'email', 'telephone', 'address', 'postal_code', 'city', 'country', 'newsletter')
+    list_display = (
+        "date_joined",
+        "title",
+        "first_name",
+        "last_name",
+        "email",
+        "telephone",
+        "address",
+        "postal_code",
+        "city",
+        "country",
+        "newsletter",
+    )
+    search_fields = (
+        "date_joined",
+        "title",
+        "first_name",
+        "last_name",
+        "email",
+        "telephone",
+        "address",
+        "postal_code",
+        "city",
+        "country",
+        "newsletter",
+    )
 
-#modeladmin_register(RegistrationAdmin)
+
+# modeladmin_register(RegistrationAdmin)

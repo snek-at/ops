@@ -14,17 +14,13 @@ def favicon(request):
 
 
 def robots(request):
-    content = "\n".join([
-        "User-Agent: *",
-        "Disallow: /search/",
-        "Allow: /",
-    ])
-    return HttpResponse(content, content_type='text/plain')
+    content = "\n".join(["User-Agent: *", "Disallow: /search/", "Allow: /",])
+    return HttpResponse(content, content_type="text/plain")
 
 
-def page_not_found(request, exception, template_name='patterns/pages/wagtail/404.html'):
+def page_not_found(request, exception, template_name="patterns/pages/wagtail/404.html"):
     return defaults.page_not_found(request, exception, template_name)
 
 
-def server_error(request, template_name='patterns/pages/wagtail/500.html'):
+def server_error(request, template_name="patterns/pages/wagtail/500.html"):
     return defaults.server_error(request, template_name)

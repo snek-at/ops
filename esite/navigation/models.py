@@ -7,36 +7,37 @@ from wagtail.core.fields import RichTextField, StreamField
 
 class LinkBlock(blocks.StructBlock):
     page = blocks.PageChooserBlock()
-    title = blocks.CharBlock(help_text="Leave blank to use the page's own title", required=False)
+    title = blocks.CharBlock(
+        help_text="Leave blank to use the page's own title", required=False
+    )
 
     class Meta:
-        template = 'patterns/molecules/navigation/blocks/menu_item.html',
+        template = ("patterns/molecules/navigation/blocks/menu_item.html",)
 
 
-@register_setting(icon='list-ul')
+@register_setting(icon="list-ul")
 class NavigationSettings(BaseSetting, ClusterableModel):
     primary_navigation = StreamField(
-        [('link', LinkBlock()), ],
-        blank=True,
-        help_text="Main site navigation"
+        [("link", LinkBlock()),], blank=True, help_text="Main site navigation"
     )
     footer_links = StreamField(
-        [('link', LinkBlock()), ],
+        [("link", LinkBlock()),],
         blank=True,
-        help_text="Single list of elements at the base of the page."
+        help_text="Single list of elements at the base of the page.",
     )
 
     footer_bottom_text = RichTextField(
-        features=['bold', 'italic', 'link'],
+        features=["bold", "italic", "link"],
         blank=True,
-        help_text="Small print text at the bottom of all pages. Not required."
+        help_text="Small print text at the bottom of all pages. Not required.",
     )
 
     panels = [
-        StreamFieldPanel('primary_navigation'),
-        StreamFieldPanel('footer_links'),
-        FieldPanel('footer_bottom_text'),
+        StreamFieldPanel("primary_navigation"),
+        StreamFieldPanel("footer_links"),
+        FieldPanel("footer_bottom_text"),
     ]
+
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019 Werbeagentur Christian Aichner

@@ -10,33 +10,36 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('wagtailcore', '0045_assign_unlock_grouppagepermission'),
-        ('registration', '0001_initial'),
-        ('user', '0001_initial'),
+        ("wagtailcore", "0045_assign_unlock_grouppagepermission"),
+        ("registration", "0001_initial"),
+        ("user", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Registration',
-            fields=[
-            ],
+            name="Registration",
+            fields=[],
             options={
-                'ordering': ('date_joined',),
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
+                "ordering": ("date_joined",),
+                "proxy": True,
+                "indexes": [],
+                "constraints": [],
             },
-            bases=('user.user',),
+            bases=("user.user",),
         ),
         migrations.AddField(
-            model_name='registrationformsubmission',
-            name='page',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.Page'),
+            model_name="registrationformsubmission",
+            name="page",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="wagtailcore.Page"
+            ),
         ),
         migrations.AddField(
-            model_name='registrationformsubmission',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="registrationformsubmission",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+            ),
         ),
     ]

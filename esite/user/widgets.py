@@ -7,9 +7,10 @@ from django.contrib.auth import get_user_model
 
 
 class UserChooser(AdminChooser):
-    choose_one_text = _('Choose a User')
+    choose_one_text = _("Choose a User")
     model = get_user_model()
-    choose_modal_url_name = 'user_chooser:choose'
+    choose_modal_url_name = "user_chooser:choose"
+
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019 Werbeagentur Christian Aichner

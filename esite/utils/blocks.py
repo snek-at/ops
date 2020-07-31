@@ -35,10 +35,13 @@ class QuoteBlock(blocks.StructBlock):
 # Main streamfield block to be inherited by Pages
 class StoryBlock(blocks.StreamBlock):
     heading = blocks.CharBlock(
-        classname='full title', icon='title',
-        template='patterns/molecules/streamfield/blocks/heading_block.html'
+        classname="full title",
+        icon="title",
+        template="patterns/molecules/streamfield/blocks/heading_block.html",
     )
-    paragraph = blocks.RichTextBlock(features=['h2', 'h3', 'bold', 'italic', 'link', 'ol', 'ul'])
+    paragraph = blocks.RichTextBlock(
+        features=["h2", "h3", "bold", "italic", "link", "ol", "ul"]
+    )
     image = ImageBlock()
     quote = QuoteBlock()
     embed = EmbedBlock()

@@ -35,19 +35,19 @@ from esite.utils.views import favicon, robots
 
 # Private URLs are not meant to be cached.
 private_urlpatterns = [
-    path('django-admin/', admin.site.urls),
-    path('admin/', include(wagtailadmin_urls)),
-    path('documents/', include(wagtaildocs_urls)),
+    path("django-admin/", admin.site.urls),
+    path("admin/", include(wagtailadmin_urls)),
+    path("documents/", include(wagtaildocs_urls)),
 ]
 
 
 # Public URLs that are meant to be cached.
 urlpatterns = [
-    #url(r'^api/v2/', api_router.urls),
+    # url(r'^api/v2/', api_router.urls),
     url(r"", include(api_urls)),
-    path('sitemap.xml', sitemap),
-    path('favicon.ico', favicon),
-    path('robots.txt', robots),
+    path("sitemap.xml", sitemap),
+    path("favicon.ico", favicon),
+    path("robots.txt", robots),
 ]
 
 
@@ -61,41 +61,53 @@ if settings.DEBUG:
 
     urlpatterns += [
         # Add views for testing 404 and 500 templates
-        path('test404/', TemplateView.as_view(template_name='patterns/pages/wagtail/404.html')),
-        path('test500/', TemplateView.as_view(template_name='patterns/pages/wagtail/500.html')),
+        path(
+            "test404/",
+            TemplateView.as_view(template_name="patterns/pages/wagtail/404.html"),
+        ),
+        path(
+            "test500/",
+            TemplateView.as_view(template_name="patterns/pages/wagtail/500.html"),
+        ),
     ]
 
 
 # Style guide
-if getattr(settings, 'PATTERN_LIBRARY_ENABLED', False) and apps.is_installed('pattern_library'):
+if getattr(settings, "PATTERN_LIBRARY_ENABLED", False) and apps.is_installed(
+    "pattern_library"
+):
     private_urlpatterns += [
-        path('pattern-library/', include('pattern_library.urls')),
+        path("pattern-library/", include("pattern_library.urls")),
     ]
 
 
 # Set public URLs to use the "default" cache settings.
-urlpatterns = decorate_urlpatterns(urlpatterns,
-                                   get_default_cache_control_decorator())
+urlpatterns = decorate_urlpatterns(urlpatterns, get_default_cache_control_decorator())
 
 # Set vary header to instruct cache to serve different version on different
 # cookies, different request method (e.g. AJAX) and different protocol
 # (http vs https).
 urlpatterns = decorate_urlpatterns(
     urlpatterns,
-    vary_on_headers('Cookie', 'X-Requested-With', 'X-Forwarded-Proto',
-                    'Accept-Encoding')
+    vary_on_headers(
+        "Cookie", "X-Requested-With", "X-Forwarded-Proto", "Accept-Encoding"
+    ),
 )
 
 # Join private and public URLs.
-urlpatterns = private_urlpatterns + urlpatterns + [
-    # Add Wagtail URLs at the end.
-    # Wagtail cache-control is set on the page models's serve methods.
-    path('', include(wagtail_urls)),
-]
+urlpatterns = (
+    private_urlpatterns
+    + urlpatterns
+    + [
+        # Add Wagtail URLs at the end.
+        # Wagtail cache-control is set on the page models's serve methods.
+        path("", include(wagtail_urls)),
+    ]
+)
 
 # Error handlers
-handler404 = 'esite.utils.views.page_not_found'
-handler500 = 'esite.utils.views.server_error'
+handler404 = "esite.utils.views.page_not_found"
+handler500 = "esite.utils.views.server_error"
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019 Werbeagentur Christian Aichner

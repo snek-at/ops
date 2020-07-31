@@ -7,18 +7,11 @@ from esite.bifrost.models import GraphQLString
 
 
 class CustomDocument(AbstractDocument):
-    description = models.TextField(
-        max_length=255,
-        blank=True,
-        null=True
-    )
-    admin_form_fields = WagtailDocument.admin_form_fields + (
-        'description',
-    )
+    description = models.TextField(max_length=255, blank=True, null=True)
+    admin_form_fields = WagtailDocument.admin_form_fields + ("description",)
 
-    graphql_fields = (
-        GraphQLString("description"),
-    )
+    graphql_fields = (GraphQLString("description"),)
+
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019 Werbeagentur Christian Aichner

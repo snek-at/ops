@@ -26,7 +26,6 @@ INSTALLED_APPS = [
     # Our own pages
     "esite.home",
     # Our own apps
-    "esite.registration",
     "esite.bifrost",
     "esite.core",
     "esite.user",
@@ -175,7 +174,6 @@ BIFROST_APPS = {
     "documents": "",
     "images": "",
     "ops_pipelines": "",
-    "registration": "",
 }
 
 # > Password Validation

@@ -174,6 +174,7 @@ BIFROST_APPS = {
     "documents": "",
     "images": "",
     "ops_pipelines": "",
+    "ops_scpages": "",
 }
 
 # > Password Validation

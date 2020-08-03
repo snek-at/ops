@@ -79,7 +79,7 @@ class _S_PipelineBlock(blocks.StructBlock):
             )
         ],
         null=True,
-        blank=False,
+        blank=True,
     )
     verified = blocks.BooleanBlock(
         null=False,
@@ -101,7 +101,7 @@ class _S_PipelineBlock(blocks.StructBlock):
 # > Pages
 class OpsPipelinesPage(Page):
     # Only allow creating HomePages at the root level
-    # parent_page_types = ["wagtailcore.Page"]
+    parent_page_types = ["wagtailcore.Page"]
 
     sections = fields.StreamField(
         [("S_PipelineBlock", _S_PipelineBlock(null=True, icon="cogs")),],
@@ -123,13 +123,16 @@ class OpsPipelinesPage(Page):
 
 
 # Form
-class PipelineFormField(AbstractFormField):
+class OpsPipelineFormField(AbstractFormField):
     page = ParentalKey(
-        "PipelineFormPage", on_delete=models.CASCADE, related_name="form_fields",
+        "OpsPipelineFormPage", on_delete=models.CASCADE, related_name="form_fields",
     )
 
 
-class PipelineFormPage(AbstractEmailForm):
+class OpsPipelineFormPage(AbstractEmailForm):
+    # Only allow creating HomePages at the root level
+    parent_page_types = ["OpsPipelinesPage"]
+
     # When creating a new Form page in Wagtail
     head = models.CharField(null=True, blank=False, max_length=255)
     description = models.CharField(null=True, blank=False, max_length=255)
@@ -165,7 +168,7 @@ class PipelineFormPage(AbstractEmailForm):
     ]
 
     def get_submission_class(self):
-        return PipelineFormSubmission
+        return OpsPipelineFormSubmission
 
     # Create a new user
     def create_or_update_pipeline(
@@ -252,7 +255,7 @@ class PipelineFormPage(AbstractEmailForm):
             self.send_mail(form)
 
 
-class PipelineFormSubmission(AbstractFormSubmission):
+class OpsPipelineFormSubmission(AbstractFormSubmission):
     pass
     # user = models.ForeignKey(OpsPipelinesPage, on_delete=models.CASCADE)
 

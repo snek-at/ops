@@ -261,25 +261,20 @@ class _S_ProjectBlock(blocks.StructBlock):
 class OpsScpagesPage(Page):
     # Only allow creating HomePages at the root level
     parent_page_types = ["wagtailcore.Page"]
-    """ Header Stuff """
-    email = models.CharField(null=True, blank=False, max_length=255)
+    graphql_fields = []
 
-    projects_section = fields.StreamField(
-        [("S_ProjectBlock", _S_ProjectBlock(null=True, icon="cogs")),],
-        null=True,
-        blank=True,
-    )
-    users_section = fields.StreamField(
-        [("S_UserBlock", _S_ScpPageUser(null=True, icon="cogs")),],
-        null=True,
-        blank=True,
-    )
-    feed = fields.StreamField(
+    """[Tabs]
+    
+    Wagtail content and API definition of all tabs
+    """
+    # Overview
+    overview_tab_name = models.CharField(null=True, blank=True, max_length=255)
+    feed_section = fields.StreamField(
         [("feed", FeedBlock(null=True, blank=False, icon="fa-newspaper-o"),)],
         null=True,
         blank=True,
     )
-    history = fields.StreamField(
+    history_section = fields.StreamField(
         [
             (
                 "history",
@@ -289,8 +284,7 @@ class OpsScpagesPage(Page):
         null=True,
         blank=True,
     )
-
-    languages = fields.StreamField(
+    languages_section = fields.StreamField(
         [
             (
                 "language",
@@ -303,71 +297,138 @@ class OpsScpagesPage(Page):
         blank=True,
     )
 
-    cache = models.TextField(null=True)
-
-    graphql_fields = [
-        GraphQLString("email"),
-        # GraphQLString("url"),
-        # GraphQLString("description"),
-        # GraphQLString("maintainer_name"),
-        # GraphQLString("maintainer_username"),
-        # GraphQLString("maintainer_email"),
-        GraphQLStreamfield("projects_section"),
-        GraphQLStreamfield("users_section"),
-        GraphQLStreamfield("feed"),
-        GraphQLStreamfield("history"),
-        GraphQLStreamfield("languages"),
-        GraphQLStreamfield("cache"),
-    ]
-
     overview_panels = [
-        StreamFieldPanel("feed"),
-        StreamFieldPanel("history"),
-        StreamFieldPanel("languages"),
+        FieldPanel("overview_tab_name"),
+        StreamFieldPanel("feed_section"),
+        StreamFieldPanel("history_section"),
+        StreamFieldPanel("languages_section"),
     ]
 
-    user_panels = [StreamFieldPanel("users_section")]
-    project_panels = [StreamFieldPanel("projects_section")]
+    graphql_fields += [
+        GraphQLString("overview_tab_name"),
+        GraphQLStreamfield("feed_section"),
+        GraphQLStreamfield("history_section"),
+        GraphQLStreamfield("languages_section"),
+    ]
+
+    # Users
+    users_tab_name = models.CharField(null=True, blank=True, max_length=255)
+    users_section = fields.StreamField(
+        [("S_UserBlock", _S_ScpPageUser(null=True, icon="cogs")),],
+        null=True,
+        blank=True,
+    )
+
+    user_panels = [FieldPanel("users_tab_name"), StreamFieldPanel("users_section")]
+    # Projects
+    project_tab_name = models.CharField(null=True, blank=True, max_length=255)
+    projects_section = fields.StreamField(
+        [("S_ProjectBlock", _S_ProjectBlock(null=True, icon="cogs")),],
+        null=True,
+        blank=True,
+    )
+
+    project_panels = [
+        FieldPanel("project_tab_name"),
+        StreamFieldPanel("projects_section"),
+    ]
+
+    graphql_fields += [
+        GraphQLString("project_tab_name"),
+        GraphQLStreamfield("projects_section"),
+    ]
+
+    # Imprint
+    imprint_tab_name = models.CharField(null=True, blank=True, max_length=255)
+    city = models.CharField(null=True, blank=True, max_length=255)
+    zip_code = models.CharField(null=True, blank=True, max_length=255)
+    address = models.CharField(null=True, blank=True, max_length=255)
+    telephone = models.CharField(null=True, blank=True, max_length=255)
+    telefax = models.CharField(null=True, blank=True, max_length=255)
+    vat_number = models.CharField(null=True, blank=True, max_length=255)
+    whatsapp_telephone = models.CharField(null=True, blank=True, max_length=255)
+    whatsapp_contactline = models.CharField(null=True, blank=True, max_length=255)
+    tax_id = models.CharField(null=True, blank=True, max_length=255)
+    trade_register_number = models.CharField(null=True, blank=True, max_length=255)
+    court_of_registry = models.CharField(null=True, blank=True, max_length=255)
+    place_of_registry = models.CharField(null=True, blank=True, max_length=255)
+    trade_register_number = models.CharField(null=True, blank=True, max_length=255)
+    ownership = models.CharField(null=True, blank=True, max_length=255)
+    email = models.EmailField(null=True, blank=True)
+    employee_count = models.CharField(null=True, blank=True, max_length=255)
+    opensource_url = models.URLField(null=True, blank=True)
+    recruiting_url = models.URLField(null=True, blank=True)
+    description = models.CharField(null=True, blank=True, max_length=255)
+
     imprint_panels = [
+        FieldPanel("imprint_tab_name"),
         MultiFieldPanel(
             [
-                # FieldPanel("city"),
-                # FieldPanel("zip_code"),
-                # FieldPanel("address"),
-                # FieldPanel("telephone"),
-                # FieldPanel("telefax"),
-                # FieldPanel("whatsapp_telephone"),
-                # FieldPanel("whatsapp_contactline"),
+                FieldPanel("city"),
+                FieldPanel("zip_code"),
+                FieldPanel("address"),
+                FieldPanel("telephone"),
+                FieldPanel("telefax"),
+                FieldPanel("whatsapp_telephone"),
+                FieldPanel("whatsapp_contactline"),
                 FieldPanel("email"),
-                # FieldPanel("copyrightholder"),
             ],
             heading="contact",
         ),
         MultiFieldPanel(
             [
-                # FieldPanel("vat_number"),
-                # FieldPanel("tax_id"),
-                # FieldPanel("trade_register_number"),
-                # FieldPanel("court_of_registry"),
-                # FieldPanel("place_of_registry"),
-                # FieldPanel("trade_register_number"),
-                # FieldPanel("ownership"),
+                FieldPanel("vat_number"),
+                FieldPanel("tax_id"),
+                FieldPanel("trade_register_number"),
+                FieldPanel("court_of_registry"),
+                FieldPanel("place_of_registry"),
+                FieldPanel("trade_register_number"),
+                FieldPanel("ownership"),
             ],
             heading="legal",
         ),
-        # StreamFieldPanel("sociallinks"),
         MultiFieldPanel(
             [
-                # FieldPanel("about"),
-                # FieldPanel("privacy"),
-                # FieldPanel("shipping"),
-                # FieldPanel("gtc"),
-                # FieldPanel("cancellation_policy"),
+                FieldPanel("employee_count"),
+                FieldPanel("opensource_url"),
+                FieldPanel("recruiting_url"),
+                FieldPanel("description"),
             ],
-            heading="terms",
+            heading="about",
         ),
     ]
+
+    graphql_fields += [
+        GraphQLString("imprint_tab_name"),
+        GraphQLString("city"),
+        GraphQLString("zip_code"),
+        GraphQLString("address"),
+        GraphQLString("telephone"),
+        GraphQLString("telefax"),
+        GraphQLString("vat_number"),
+        GraphQLString("whatsapp_telephone"),
+        GraphQLString("whatsapp_contactline"),
+        GraphQLString("tax_id"),
+        GraphQLString("trade_register_number"),
+        GraphQLString("court_of_registry"),
+        GraphQLString("place_of_registry"),
+        GraphQLString("trade_register_number"),
+        GraphQLString("ownership"),
+        GraphQLString("email"),
+        GraphQLString("employee_count"),
+        GraphQLString("opensource_url"),
+        GraphQLString("recruiting_url"),
+        GraphQLString("description"),
+    ]
+    # Settings
+    settings_tab_name = models.CharField(null=True, blank=True, max_length=255)
+    cache = models.TextField(null=True)
+
     cache_panels = [FieldPanel("cache")]
+
+    graphql_fields += [
+        GraphQLString("cache"),
+    ]
 
     edit_handler = TabbedInterface(
         [

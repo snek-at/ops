@@ -36,7 +36,6 @@ from esite.bifrost.helpers import register_streamfield_block
 
 # > Sections
 @register_streamfield_block
-# > Sections
 class _S_SmallBlock(blocks.StructBlock):
     charblock = blocks.CharBlock()
     textblock = blocks.TextBlock()

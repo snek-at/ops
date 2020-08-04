@@ -22,7 +22,6 @@ __pycache__/
 *.jpg
 *.png
 *.gif
-*.svg
 
 # Fonts
 *.ttf

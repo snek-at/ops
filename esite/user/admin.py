@@ -5,6 +5,8 @@ from wagtail.contrib.modeladmin.options import (
 )
 
 from .models import User
+from esite.customer.admin import CustomerAdmin
+from esite.registration.admin import RegistrationAdmin
 
 # Register your user related models here.
 
@@ -28,8 +30,13 @@ class CustomerAdminB(ModelAdminGroup):
     menu_order = 110
     add_to_settings_menu = False
     exclude_from_explorer = False
-    items = (UserAdmin,)
+    items = (
+        UserAdmin,
+        CustomerAdmin,
+        RegistrationAdmin
+    )
 
+modeladmin_register(CustomerAdminB)
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019-2020 Simon Prast
